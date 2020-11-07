@@ -4,18 +4,13 @@ import IssuesHook from "../hooks/IssuesHook";
 import { moment_relative_time } from "../services/dates";
 
 const IssueDetails = () => {
-  const { getIssue, issue } = IssuesHook();
+  const { getIssue, comments, issue } = IssuesHook();
 
   const { id } = useParams();
 
   useEffect(() => {
     getIssue(id);
   }, []);
-
-  useEffect(() => {
-    //if(issue !== null)
-    // getIssue(id);
-  }, [issue]);
 
   return (
     issue !== null && (
@@ -31,6 +26,19 @@ const IssueDetails = () => {
             </p>
           </div>
         </div>
+        {comments.map((item) => (
+          <div className="row mb-4" key={item.id}>
+            <div className="col">
+              <div className="card">
+                <div className="card-header">
+                  {item.user.login} commented{" "}
+                  {moment_relative_time(item.created_at)}
+                </div>
+                <div className="card-body">{item.body}</div>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     )
   );

@@ -6,6 +6,7 @@ const IssuesHook = () => {
 
   const [issues, setIssues] = useState([]);
   const [issue, setIssue] = useState(null);
+  const [comments, setComments] = useState([]);
 
   const getIssues = async () => {
     const { data } = await request.get("octocat/Hello-World/issues");
@@ -14,8 +15,15 @@ const IssuesHook = () => {
 
   const getIssue = async (number) => {
     const { data } = await request.get(`octocat/Hello-World/issues/${number}`);
-    console.log(data);
     setIssue(data);
+    getComment(data.number);
+  };
+
+  const getComment = async (number) => {
+    const { data } = await request.get(
+      `octocat/Hello-World/issues/${number}/comments`
+    );
+    setComments(data);
   };
 
   return {
@@ -23,7 +31,9 @@ const IssuesHook = () => {
     issue,
     setIssues,
     getIssues,
-    getIssue
+    getIssue,
+    getComment,
+    comments
   };
 };
 
