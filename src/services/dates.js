@@ -1,5 +1,5 @@
 import moment from "moment";
-
+//created a simple and more dynamic functions
 const moment_with_format = (value, formatString) => {
   return moment(value).format(formatString);
 };
