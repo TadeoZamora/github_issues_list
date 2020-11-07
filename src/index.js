@@ -1,12 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
-import App from "./App";
+import Issues from "./pages/Issues";
+import "./styles.css";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import IssueDetails from "./pages/IssueDetails";
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <div className="container mt-4">
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={Issues} />
+        <Route path="/details/:id" component={IssueDetails} />
+      </Switch>
+    </BrowserRouter>
+  </div>,
   rootElement
 );
